@@ -36,14 +36,28 @@ async updateUser(req, res) {
             { $set: req.body },
             { new: true }
         );
-        if (!updatedUser) {
+        if (!updateUser) {
             res.status(404).json({ message: "No user with this id!" });
           } else {
-            res.status(200).json(updatedUser);
+            res.status(200).json(updateUser);
     } 
 } catch (error) {
     res.status(500).json(error);
 }
 
-}
+},
+async createUser(req,res) {
+    try {
+        const createUser = await Users.create(req.body)
+        if (!createUser) {
+            res.status(404).json({message: "user not created"})
+        } else {
+            res.status(200).json(createUser)
+        }
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).json(err)
+    }
+},
 }

@@ -11,7 +11,7 @@ const UsersSchema = new Schema(
             type: String,
             required: true,
             unique: true, 
-            match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,
+            // match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
 // TODO: ADD A REGEX FOR THE MATCH EMAIL ON LINE 14
         },
 
@@ -34,7 +34,7 @@ const UsersSchema = new Schema(
 );
 
 UsersSchema.virtual('friendCount').get(function (){
-    return this.friends.length;
+    return this.Friends.length;
 });
 
 const Users =model('Users', UsersSchema)
