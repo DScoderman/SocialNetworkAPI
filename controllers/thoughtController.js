@@ -28,8 +28,8 @@ async getThought(req, res) {
 async CreateThought(req,res)  {
     try {const thought = await Thoughts.create(req.body)
         const user = await Users.findOneAndUpdate(
-            { _id: req.body.UsersId },
-            { $push: { thoughts: Thoughts._id } },
+            { _id: req.body.UserId },
+            { $push: { thoughts: thought._id } },
             { new: true }
         )
     if (!user) {
@@ -43,30 +43,33 @@ async CreateThought(req,res)  {
 },
 
 // update thought
-async updateThought(req,res) {
+async updateThought(req, res) {
     try {
         const updateThought = await Thoughts.findOneAndUpdate(
             {_id: req.body.ThoughtsId},
             {$set: req.body},
             {runValidators: true, new: true}
         );
-        !Thoughts
-            ? res.status(404).json({ message: "ID not found" })
-            : res.json(Thoughts)
-        } catch (err) {
-            res.status(500).json({ message: err })
+        if (!updateThought) {
+            res.status(404).json({ message: "ID not found" });
+        } else {
+            res.json(updateThought);
         }
-    },
+    } catch (err) {
+        res.status(500).json({ message: err });
+    }
+},
 
     // deleteThought
-    async deleteThought(res,req) {
+    async deleteThought(req, res) {
         try {
 
-        const deleteThought =await Thoughts.findOneandRemove({
-             _id: req.body.ThoughtsId})
+        const deleteThought =await Thoughts.findOneAndDelete({
+             _id: req.body.thoughtId})
              if (!deleteThought) {
                 return res.status(404).json({message: "Invalid ID for thought"})
-             }             
+             } 
+             res.status(200).json({message: "deleted thought"})            
         }
     catch (err) {
         res.status(500).json({message: err})
@@ -74,7 +77,7 @@ async updateThought(req,res) {
     },
 
     // add thought reaction
-    async thoughtReactionAdd(res, req) {
+    async thoughtReactionAdd(req, res) {
         try {
 
             const thoughtReactionAdd = await Thoughts.findOneAndUpdate(
@@ -95,7 +98,7 @@ async updateThought(req,res) {
             },
     
             // delete reaction
-            async thoughtReactionDelete(res, req)  {
+            async thoughtReactionDelete(req, res)  {
             try {
 
                 const thoughtReactionDelete = await Thoughts.findOneAndUpdate(

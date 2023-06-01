@@ -13,10 +13,10 @@ async getUsers(req, res) {
 
 async getSingleUser(req,res) {
     try {
-        const singleUser = await Users.findOne({_id: req.params.userId})
+        const singleUser = await Users.findOne({_id: req.params.UserId})
         .select("-__v")
-        .populate("thoughts")
-        .populate("friends");
+        .populate("Thoughts")
+        .populate("Friends");
         if (!singleUser) {
             res.status(404).json({message: "no user with this id"})
         } else {
@@ -32,7 +32,7 @@ async getSingleUser(req,res) {
 async updateUser(req, res) {
     try {
         const updateUser = await Users.findOneAndUpdate(
-            { _id: req.body.UsersId },
+            { _id: req.body.UserId },
             { $set: req.body },
             { new: true }
         );
@@ -89,7 +89,7 @@ async deleteUser(req, res) {
         }
 
         const thoughtData = await Thoughts.deleteMany(
-            { username: userData.username }
+            { username: userData.Username}
         )
 
         !thoughtData 
