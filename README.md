@@ -14,5 +14,5 @@ For testing the data and API, you will need to install insomnia to see if the da
 
 ## Usage
 
-To begin testing the API, you need to get a server up and running. To do that, run the command "node server.js" to create the server that will listen for the API. With that now done, check out the following video below to test the routes in insomnia: 
+To begin testing the API, you need to get a server up and running. To do that, run the command "node server.js" to create the server that will listen for the API. With that now done, check out the following video below to test the routes in [insomnia:] (https://docs.insomnia.rest/insomnia/install)
 
