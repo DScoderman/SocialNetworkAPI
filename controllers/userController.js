@@ -60,4 +60,45 @@ async createUser(req,res) {
         res.status(500).json(err)
     }
 },
+async deleteUser(req, res) {
+    try {
+        const userData = await Users.findOneAndRemove({ _id: req.body.userId })
+
+        if (!userData) {
+            return res.status(404).json({ message: "No user with that ID" }) 
+        }
+
+        const thoughtData = await Thoughts.deleteMany(
+            { username: userData.username }
+        )
+
+        !thoughtData 
+        ? res.status(404).json({ message: "User deleted but no thoughts found" }) 
+        : res.json("User successfully deleted")
+
+    } catch (err) {
+        res.status(500).json({ message: err })
+    }
+},
+async deleteUser(req, res) {
+    try {
+        const userData = await Users.findOneAndRemove({ _id: req.body.userId })
+
+        if (!userData) {
+            return res.status(404).json({ message: "No user with that ID" }) 
+        }
+
+        const thoughtData = await Thoughts.deleteMany(
+            { username: userData.username }
+        )
+
+        !thoughtData 
+        ? res.status(404).json({ message: "Thoughts not found" }) 
+        : res.json("User successfully deleted")
+
+    } catch (err) {
+        res.status(500).json({ message: err })
+    }
+},
+
 }
