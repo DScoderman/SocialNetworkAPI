@@ -18,3 +18,6 @@ To begin testing the API, you need to get a server up and running. To do that, r
 
 For a walkthrough on testing the routes, check [here:](https://drive.google.com/file/d/1j43Muqkq4sFTnre5WFTdWNL_9g3krTRZ/view)
 
+## License: 
+
+MIT License, so feel free to use my work.
